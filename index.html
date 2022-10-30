@@ -13,14 +13,16 @@
         <div id="header">
             <div class="container">
                 <nav>
-                    <img src="images/logo.png" alt="logo" class="logo" />
-                    <ul>
-                        <li><a href="#">Home</a> </li>
-                        <li><a href="#">About</a> </li>
-                        <li><a href="#">Services</a> </li>
-                        <li><a href="#">Portfolio</a> </li>
-                        <li><a href="#">Contact</a> </li>
+                    <img src="images/logo1.png" alt="logo" class="logo" />
+                    <ul id="sideMenu">
+                        <li><a href="#header">Home</a> </li>
+                        <li><a href="#about">About</a> </li>
+                        <li><a href="#services">Services</a> </li>
+                        <li><a href="#portfolio">Portfolio</a> </li>
+                        <li><a href="#contact">Contact</a> </li>
+                        <i class="fa-solid fa-xmark" onclick="closeMenu()"></i>
                     </ul>
+                    <i class="fa-solid fa-bars" onclick="openMenu()"></i>
                 </nav>
                 <div class="header-text">
                     <h1>Hi, I'm Vishakha Sahu.</h1>
@@ -29,12 +31,12 @@
             </div>
         </div>
 
-        <!-- -------------about--------------- -->
+        <!-- -------------About Me--------------- -->
         <div id="about">
             <div class="container">
                 <div class="row">
-                    <div class="about-col-1">
-                    </div>
+                    <!-- <div class="about-col-1">
+                    </div> -->
                     <div class="about-col-2">
                         <h1 class="sub-title">About Me</h1>
                         <p>
@@ -74,7 +76,7 @@
             </div>
         </div>
 
-        <!-- ---------------services---------------- -->
+        <!-- ---------------Services---------------- -->
         <div id="services">
             <div class="container">
                 <h1 class="sub-title">My Services</h1>
@@ -99,6 +101,77 @@
             </div>
         </div>
 
+        <!-- --------------Portfolio-------------- -->
+        <div id="portfolio">
+            <div class="container">
+                <h1 class="sub-title">My Work</h1>
+                <div class="work-list">
+                    <div class="work">
+                        <img src="images/work-1.png" alt="work-1" />
+                        <div class="layer">
+                            <h3>Social Media App</h3>
+                            <p>
+                                It helps you showcase your work or share your word, with a little twist. Do Checkout!
+                            </p>
+                            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="work">
+                        <img src="images/work-2.png" alt="work-2" />
+                        <div class="layer">
+                            <h3>Music App</h3>
+                            <p>
+                                It helps you showcase your work or share your word, with a little twist. Do Checkout!
+                            </p>
+                            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="work">
+                        <img src="images/work-3.png" alt="work-3" />
+                        <div class="layer">
+                            <h3>Online Shopping App</h3>
+                            <p>
+                                It helps you showcase your work or share your word, with a little twist. Do Checkout!
+                            </p>
+                            <a href="#"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="btn">See More</a>
+            </div>
+        </div>
+
+        <!-- -------------Contact Me--------------- -->
+        <div id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="contact-left">
+                        <h1 class="sub-title">Contact Me</h1>
+                        <p><i class="fa-solid fa-paper-plane"></i> vishakhasahu023@gmail.com</p>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook"></i></a>
+                            <a href=""><i class="fa-brands fa-twitter-square"></i></a>
+                            <a href=""><i class="fa-brands fa-instagram"></i></a>
+                            <a href=""><i class="fa-brands fa-linkedin"></i></a>
+                        </div>
+                        <a href="images/Vishakha-Resume-2022.pdf" download class="btn btn-resume">Download Resume</a>
+                    </div>
+                    <div class="contact-right">
+                        <form name="submit-to-google-sheet">
+                            <input type="text" name="Name" placeholder="Your Name" required>
+                            <input type="email" name="Email" placeholder="Your Email" required>
+                            <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                            <button type="submit" class="btn btn2">Submit</button>
+                        </form>
+                        <span id="msg"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Copyright <i class="fa-solid fa-heart"></i> Vishakha </p>
+            </div>
+        </div>
+
 
         <script>
             var tabLinks = document.getElementsByClassName("tab-links")
@@ -113,11 +186,39 @@
                 }
                 event.currentTarget.classList.add("active-link");
                 document.getElementById(tabname).classList.add("active-tab");
-
             }
-
         </script>
 
-    </body>
+        <script>
+            var sideMenu = document.getElementById("sideMenu");
 
+            function openMenu(){
+                sideMenu.style.right = "0"
+            }
+            function closeMenu(){
+                sideMenu.style.right = "-200px"
+            }
+        </script>
+
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyqXIUgcVkmYWqLpRvpAYORsjTWo5wox364owPwxcvPMdbaKf7c4cKt6rbcgvnJ8eW9/exec'
+            const form = document.forms['submit-to-google-sheet']
+            const msg = document.getElementById("msg")
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    msg.innerHTML="Message sent successfully!"
+                    setTimeout(function(){
+                        msg.innerHTML=""
+                    }, 5000)
+                    form.reset()
+                } 
+                )
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
+
+    </body>
 </html>
